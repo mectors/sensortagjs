@@ -1,0 +1,29 @@
+name: sensortagjs
+version: 0.1
+summary: A snap to read a sensortag
+description: read sensor tag data
+confinement: strict
+grade: stable
+
+apps:
+  st:
+    command: bin/start.sh
+    daemon: simple
+    plugs:
+      - network-bind
+      - bluetooth-control
+
+parts:
+  st:
+    plugin: nodejs
+    stage-packages:
+      - libbluetooth-dev
+    node-packages:
+      - noble
+      - sensortag
+      - node-gyp
+      - async
+  start:
+    plugin: copy
+    files:
+      start.sh: bin/start.sh
